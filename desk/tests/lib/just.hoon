@@ -1,21 +1,33 @@
-/+  *test
+/+  just,
+    shoe,
+    sole,
+    *test
 |%
 ::
 ++  run-pair
   |=  pair=^
-  ^-  tang
+  ^-  (unit tang)
+  :-  ~
   %+  expect-eq
     !>  -.pair
   !>  +.pair
 ::
-++  cases-zero
-  :~  :-  0     (sub 0 0)
-      :-  1     (sub 1 0)
-      :-  0     (sub 20 20)
-  ==
+++  run-fail
+  |=  =(trap)
+  ^-  (unit tang)
+  :-  ~
+  (expect-fail trap)
 ::
-++  fails-zero
-  :~  |.((sub 0 1))
+++  cases-render-wain
+  :~  :-  ^-  (list card:agent:shoe)
+          ~[[%shoe ~ [%sole [%klr ~]]]]
+          (render-wain ~)
+      :-  ^-  (list card:agent:shoe)
+          ~[[%shoe ~ [%sole [%klr ~[[[[~ %br] [~ [~ [0xbb 0x68 0x48]]]] ~['a']] [[[~ %br]]]]]]]]
+          (render-wain:just ~['a'])
+      :-  ^-  (list card:agent:shoe)
+          ~[[%shoe ~ [%sole [%klr ~[[[[~ %br] [~ [~ [0xbb 0x68 0x48]]]] ~['a']] [[[~ %br] [~ [~ [0xbb 0x68 0x48]]]] ~['b']] [[[~ %br] [~ [~ [0xbb 0x68 0x48]]]] ~['c']]]]]]]
+          (render-wain:just ~['a' 'b' 'c'])
   ==
 ::
 ++  cases-one
@@ -31,16 +43,17 @@
 ::
 ++  test-zero
   ;;  tang
+  %-  zing
   ;:  weld
     (murn cases-zero run-pair)
-    (murn fails-zero expect-fail)
+    (murn fails-zero run-fail)
   ==
 ::
 ++  test-one
   ;;  tang
+  %-  zing
   ;:  weld
     (murn cases-one run-pair)
-    (murn fails-one expect-fail)
+    (murn fails-one run-fail)
   ==
 --
-
