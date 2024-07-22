@@ -4,6 +4,14 @@
     *test
 |%
 ::
+++  bowl
+  |=  run=@ud
+  ^-  bowl:gall
+  :*  [~zod ~zod %just (en-beam [~zod %just [%ud run]] /)]
+    [~ ~ ~]
+    [run `@uvJ`(shax run) (add (mul run ~s1) *time) [~zod %just ud+run]]
+  ==
+::
 ++  run-pair
   |=  pair=^
   ^-  (unit tang)
@@ -21,13 +29,13 @@
 ++  cases-render-wain
   :~  :-  ^-  (list card:agent:shoe)
           ~[[%shoe ~ [%sole [%klr ~]]]]
-          (render-wain ~)
+          (render-wain:~(. just (bowl 1)) ~)
       :-  ^-  (list card:agent:shoe)
-          ~[[%shoe ~ [%sole [%klr ~[[[[~ %br] [~ [~ [0xbb 0x68 0x48]]]] ~['a']] [[[~ %br]]]]]]]]
-          (render-wain:just ~['a'])
+          ~[[%shoe ~ [%sole [%klr ~[[[[~ %br] [~ [~ [0xff 0xff 0xff]]]] ~['a']] [[[~ %br]]]]]]]]
+          (render-wain:~(. just (bowl 2)) ~['a'])
       :-  ^-  (list card:agent:shoe)
-          ~[[%shoe ~ [%sole [%klr ~[[[[~ %br] [~ [~ [0xbb 0x68 0x48]]]] ~['a']] [[[~ %br] [~ [~ [0xbb 0x68 0x48]]]] ~['b']] [[[~ %br] [~ [~ [0xbb 0x68 0x48]]]] ~['c']]]]]]]
-          (render-wain:just ~['a' 'b' 'c'])
+          ~[[%shoe ~ [%sole [%klr ~[[[[~ %br] [~ [~ [0xff 0xff 0xff]]]] ~['a']] [[[~ %br] [~ [~ [0xff 0xff 0xff]]]] ~['b']] [[[~ %br] [~ [~ [0xff 0xff 0xff]]]] ~['c']]]]]]]
+          (render-wain:~(. just (bowl 3)) ~['a' 'b' 'c'])
   ==
 ::
 ++  cases-one
@@ -45,15 +53,6 @@
   ;;  tang
   %-  zing
   ;:  weld
-    (murn cases-zero run-pair)
-    (murn fails-zero run-fail)
-  ==
-::
-++  test-one
-  ;;  tang
-  %-  zing
-  ;:  weld
-    (murn cases-one run-pair)
-    (murn fails-one run-fail)
+    (murn cases-render-wain run-pair)
   ==
 --

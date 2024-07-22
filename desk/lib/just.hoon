@@ -4,7 +4,7 @@
 /-  *just
 /+  shoe,
     sole
-|%
+|_  =bowl:gall
 ::  We want to load files as individual lines rather
 ::  than as a single string.  This will facilitate
 ::  printing visible ranges.
@@ -19,9 +19,25 @@
   ?:  =(%txt of)  .^(wain %cx /[path])
   ::  Build mark conversion core to %txt.
   ?.  (~(has by mari) of)  ~|(%mark-not-supported !!)
-  =/  gat  .^(tube:clay %cc (welp (scag 3 `(list term)`path) /[of]/txt))
-  =/  raw  .^((~(gut by mari) of noun) %cx path)
-  !<  wain  (gat !>(raw))
+  ::  Get file and envase it.  
+  =/  raw=vase
+    ?+  of  !!
+      %bill    !>(.^((list dude:gall) %cx path))
+      %hoon    !>(.^(cord %cx path))
+      %html    !>(.^(cord %cx path))
+      %json    !>(.^(json %cx path))
+      %md      !>(.^(wain %cx path))
+      %mime    !>(.^(mime %cx path))
+      %svg     !>(.^(cord %cx path))
+      %tang    !>(.^((list tank) %cx path))
+      %tape    !>(.^(tape %cx path))
+      %udon    !>(.^(cord %cx path))
+      %xhtml   !>(.^(cord %cx path))
+      %xml     !>(.^(cord %cx path))
+    ==
+  ::  Get target devase.
+  =/  gat  .^(tube:clay %cc `^path`(welp (scag 3 `(list term)`path) /[of]/txt))
+  !<  wain  (gat raw)
 ::  viaggiamo sui mari
 ::
 ++  mari
@@ -61,42 +77,32 @@
 ++  render-wain
   |=  lines=wain
   ^-  (list card:agent:shoe)
-  :~  :+  %shoe  ~
-      ^-  shoe-effect:shoe
-      :-  %sole
-      ^-  sole-effect:sole  :-  %klr
-      ^-  styx
-      %-  zing
-      %+  turn
-        lines
-      |=  =cord
-      ^-  styx
-      =/  rng  ~(. og eny)
-      =^  huer  rng  (rads:rng 256)
-      =^  hueg  rng  (rads:rng 256)
-      =^  hueb  rng  (rads:rng 256)
-      `styx`~[[[`%br ~ `[r=`@ux`huer g=`@ux`hueg b=`@ux`hueb]] cord ~]]
-  ==
+  (turn lines (curr cardigan ~))
 ::  Convert a wain to Dill output with highlighted line.
 ::
 ++  render-highlight
-  |=  [dat=?@(ro=@ud [ro=@ud fg=@ux bg=@ux]) lines=wain]
+  |=  [row=@ud lines=wain]
   ^-  (list card:agent:shoe)
-  :~  :+  %shoe  ~
-      ^-  shoe-effect:shoe
-      :-  %sole
-      ^-  sole-effect:sole  :-  %klr
-      ^-  styx
-      =|  idx=@
-      =|  fx=styx
-      |-  ^-  styx
-      ?:  =((lent lines) idx)  fx
-      =/  huer  ?:(=(ro.dat idx) (cut 3 [2 1] fg.dat) (cut 3 [2 1] bg.dat))
-      =/  hueg  ?:(=(ro.dat idx) (cut 3 [1 1] fg.dat) (cut 3 [1 1] bg.dat))
-      =/  hueb  ?:(=(ro.dat idx) (cut 3 [0 1] fg.dat) (cut 3 [0 1] bg.dat))
-      %=  $
-        idx  +(idx)
-        fx  `styx`(weld fx `styx`~[[[`%br ~ `[r=huer g=hueg b=hueb]] command ~]])
-      ==
-  ==
+  =/  res  (turn lines (curr cardigan ~))
+  %^    snap
+      res
+    row
+  (cardigan (snag row lines) `0xe5.960f)
+::  Produce a line, perhaps with color.
+::
+++  cardigan
+  |=  [=cord col=(unit @ux)]
+  :+  %shoe  ~
+  ^-  shoe-effect:shoe
+  :-  %sole
+  ^-  sole-effect:sole  :-  %klr
+  ^-  styx
+  =/  rng  ~(. og eny.bowl)
+  ?~  col
+    `styx`~[[[`%br ~ `[r=0xff g=0xff b=0xff]] cord ~]]
+  =/  fg  (need col)
+  =/  huer  `@ux`(cut 3 [2 1] fg)
+  =/  hueg  `@ux`(cut 3 [1 1] fg)
+  =/  hueb  `@ux`(cut 3 [0 1] fg)
+  `styx`~[[[`%br ~ `[r=huer g=hueg b=hueb]] cord ~]]
 --

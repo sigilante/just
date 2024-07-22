@@ -1,7 +1,12 @@
   ::  /app/just
 ::::  Version ~2024.7.18 by ~lagrev-nocfep
 ::    Demo app for /lib/just.
-/+  default-agent, dbug, shoe, sole
+/-  js=just
+/+  default-agent,
+    dbug,
+    just,
+    shoe,
+    sole
 |%
 +$  versioned-state
   $%  state-0
@@ -20,6 +25,7 @@
 +*  this     .
     default  ~(. (default-agent this %|) bowl)
     leather  ~(. (default:shoe this command) bowl)
+    aux      ~(. just bowl)
 ++  on-init   on-init:default
 ++  on-save   !>(state)
 ++  on-load
@@ -42,8 +48,7 @@
   ^-  (quip card _this)
   :_  this
   ^-  (list card)
-  =.  command  (cat 3 command '\0a')
-  (render-highlight:just 1 (reap 3 command))
+  (render-highlight:aux 1 (reap 3 command))
 ++  can-connect
   |=  =sole-id:shoe
   ^-  ?

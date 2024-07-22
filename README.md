@@ -6,3 +6,8 @@ Not more, not less, just right:  native text file display.
 
 A library to facilitate displaying text files on Urbit directly using Dill.
 
+```
+dojo> :just|open /===/lib/tiny/hoon
+
+just>
+```
