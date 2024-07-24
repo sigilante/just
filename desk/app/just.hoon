@@ -5,58 +5,64 @@
 /+  default-agent,
     dbug,
     just,
-    shoe,
-    sole
+    verb
 |%
 +$  versioned-state
-  $%  state-0
+  $%  state-zero:js
   ==
-+$  state-0  %0
-+$  card  card:agent:shoe
-+$  command  @t
++$  card  card:agent:gall
 --
-%-  agent:dbug
-=|  state-0
+=|  state-zero:js
 =*  state  -
+%-  agent:dbug
+%+  verb  |
 ^-  agent:gall
-%-  (agent:shoe command)
-^-  (shoe:shoe command)
 |_  =bowl:gall
 +*  this     .
     default  ~(. (default-agent this %|) bowl)
-    leather  ~(. (default:shoe this command) bowl)
     aux      ~(. just bowl)
 ++  on-init   on-init:default
 ++  on-save   !>(state)
 ++  on-load
   |=  old=vase
-  ^-  (quip card _this)
-  `this(state !<(state-0 old))
-++  on-poke   on-poke:default
+  ^-  [(list card) _this]
+  `this(state !<(state-zero:js old))
+++  on-poke
+  |=  [=mark =vase]
+  ^-  [(list card) _this]
+  ?+    mark  (on-poke:default mark vase)
+      %dill-poke
+    =+  !<([ses=@ta belt=dill-belt:dill] vase)
+    =?  cur  ?=(?(%' ' [%bac ~] [%aro *]) belt)
+      ?-    belt
+        ::  Move back.
+          ?([%bac ~] [%aro %u] [%aro %l])
+        (dec (max 1 cur))
+        ::  Move forward.
+          ?(%' ' [%aro %d] [%aro %r])
+        (min +(cur) (dec (lent con)))
+      ==
+    ~&  >>  ["{<cur>}/{<(dec (max 1 (lent con)))>}"]
+    [~[(render:aux ses cur 33 con)] this]
+    ::
+      %just-action
+    =+  !<(act=action:js vase)
+    ^-  [(list card) _this]
+    ?+    `@tas`-.act  (on-poke:default mark vase)
+        %open
+      :-  ~
+      %=  this
+        fyl  path.act
+        cur  0
+        con  (load-file:aux path.act)
+      ==
+    ==
+  ==
 ++  on-peek   on-peek:default
 ++  on-arvo   on-arvo:default
 ++  on-watch  on-watch:default
 ++  on-leave  on-leave:default
 ++  on-agent  on-agent:default
 ++  on-fail   on-fail:default
-++  command-parser
-  |=  =sole-id:shoe
-  ^+  |~(nail *(like [? command]))
-  (stag | (boss 256 (more gon qit)))
-++  on-command
-  |=  [=sole-id:shoe =command]
-  ^-  (quip card _this)
-  :_  this
-  ^-  (list card)
-  (render-highlight:aux 1 (reap 3 command))
-++  can-connect
-  |=  =sole-id:shoe
-  ^-  ?
-  ?|  =(~zod src.bowl)
-      (team:title [our src]:bowl)
-  ==
-++  on-connect     on-connect:leather
-++  on-disconnect  on-disconnect:leather
-++  tab-list       tab-list:leather
 --
 

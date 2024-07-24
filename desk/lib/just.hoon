@@ -2,9 +2,12 @@
 ::::
 ::
 /-  *just
-/+  shoe,
-    sole
+:: /+  shoe,
+::     sole
 |_  =bowl:gall
+::  Types
++$  blit  blit:dill
+:: +$  card  card:agent:shoe
 ::  We want to load files as individual lines rather
 ::  than as a single string.  This will facilitate
 ::  printing visible ranges.
@@ -74,35 +77,75 @@
   (slag p.range (scag +(q.range) lines))
 ::  Convert a wain to Dill output.
 ::
-++  render-wain
-  |=  lines=wain
-  ^-  (list card:agent:shoe)
-  (turn lines (curr cardigan ~))
+:: ++  render-wain
+::   |=  lines=wain
+::   ^-  (list card)
+::   (turn lines (curr cardigan ~))
 ::  Convert a wain to Dill output with highlighted line.
 ::
-++  render-highlight
-  |=  [row=@ud lines=wain]
-  ^-  (list card:agent:shoe)
-  =/  res  (turn lines (curr cardigan ~))
-  %^    snap
-      res
-    row
-  (cardigan (snag row lines) `0xe5.960f)
-::  Produce a line, perhaps with color.
+:: ++  render-highlight
+::   |=  [row=@ud lines=wain]
+::   ^-  (list card)
+::   =/  res  (turn lines (curr cardigan ~))
+::   %^    snap
+::       res
+::     row
+::   (cardigan (snag row lines) `0xe5.960f)
+:: ::  Produce a line, perhaps with color.
+:: ::
+:: ++  cardigan
+::   |=  [=cord col=(unit @ux)]
+::   :+  %shoe  ~
+::   ^-  shoe-effect:shoe
+::   :-  %sole
+::   ^-  sole-effect:sole  :-  %klr
+::   ^-  styx
+::   =/  rng  ~(. og eny.bowl)
+::   ?~  col
+::     `styx`~[[[`%br ~ `[r=0xff g=0xff b=0xff]] cord ~]]
+::   =/  fg  (need col)
+::   =/  huer  `@ux`(cut 3 [2 1] fg)
+::   =/  hueg  `@ux`(cut 3 [1 1] fg)
+::   =/  hueb  `@ux`(cut 3 [0 1] fg)
+::   `styx`~[[[`%br ~ `[r=huer g=hueg b=hueb]] cord ~]]
+::  Select a subset of lines from a wain.  (Odd numbers only.)
 ::
-++  cardigan
-  |=  [=cord col=(unit @ux)]
-  :+  %shoe  ~
-  ^-  shoe-effect:shoe
-  :-  %sole
-  ^-  sole-effect:sole  :-  %klr
-  ^-  styx
-  =/  rng  ~(. og eny.bowl)
-  ?~  col
-    `styx`~[[[`%br ~ `[r=0xff g=0xff b=0xff]] cord ~]]
-  =/  fg  (need col)
-  =/  huer  `@ux`(cut 3 [2 1] fg)
-  =/  hueg  `@ux`(cut 3 [1 1] fg)
-  =/  hueb  `@ux`(cut 3 [0 1] fg)
-  `styx`~[[[`%br ~ `[r=huer g=hueg b=hueb]] cord ~]]
+++  select
+  |=  [[cur=@ len=@] lines=wain]
+  ^-  wain  :: (list cord)
+  =/  beg  (sub cur (min cur (div len 2)))
+  =/  end  (add cur (div len 2))
+  (slag beg (scag end lines))
+::  Produce a stub from a line.
+::
+++  make
+  |=  c=cord
+  ^-  stub
+  [*stye (tuba (trip c))]~
+::  Render the current view of lines.
+::
+++  render
+  |=  [ses=@ta cur=@ud len=@ud con=wain]
+  ^-  card:agent:gall
+  =;  =blit
+    [%give %fact [/dill/[ses]]~ %dill-blit !>(blit)]
+  :-  %mor
+  :*  ::[%clr ~]  ::NOTE  causes flickers in bare sessions
+      [%hop 5 5]
+      [%put `(list @)`"{(a-co:co +(cur))}/{(a-co:co (lent con))}"]
+    ::
+      =-  (flop out)
+      %+  roll
+        =/  lis=(list stub)
+          %+  turn
+            (select [cur 7] con)
+          make
+        =+  len=(lent lis)
+        ?.  (lth len 28)  lis
+        %+  weld  lis
+        `(list stub)`(reap (sub 28 len) `stub`[*stye (reap 128 ~-.)]~)
+      |=  [lin=stub row=_1 out=(list blit)]
+      :-  +(row)
+      [[%klr lin] [%hop 0 row] out]
+  ==
 --

@@ -11,3 +11,12 @@ dojo> :just|open /===/lib/tiny/hoon
 
 just>
 ```
+
+Since this uses terminal sessions, you can only use it correctly in `%webterm`.
+
+---
+
+Design questions:
+
+- Can you retrieve the current default text color?
+
