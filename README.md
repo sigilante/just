@@ -1,5 +1,7 @@
 # `/lib/just`
 
+**Status:  `%just` works as an app and as a library, but only in `%webterm` pending terminal session support in the runtime.**
+
 Not more, not less, just right:  native text file display.
 
 ![H. J. Ford, The Story of the Three Little Bears](https://www.colorado.edu/projects/fairy-tales/sites/default/files/styles/medium/public/article-image/greenfairybook00lang_0_0259.jpg?itok=76T2p4-T)
