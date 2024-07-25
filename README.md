@@ -7,12 +7,20 @@ Not more, not less, just right:  native text file display.
 A library to facilitate displaying text files on Urbit directly using Dill.
 
 ```
-dojo> :just|open /===/lib/tiny/hoon
+> :just|open /===/lib/tiny/hoon
 
-just>
+> :just &just-action [%open /===/desk/bill]
+
+> :just &just-action [%open /=just=/dat/odyssey/txt]
+
+> :just &just-action [%open /=just=/dat/rime/txt]
 ```
 
-Since this uses terminal sessions, you can only use it correctly in `%webterm`.
+Since this uses terminal sessions, you can only use it correctly in `%webterm` currently.  Open your `%webterm` and add a new session using the `+` tab at the top.  Name the new session `just!anything`.
+
+The arrow keys allow you to navigate.
+
+Formally, `q` or `x` will close the session, but `%webterm` does not currently dynamically update the screen with the closed session.
 
 ---
 

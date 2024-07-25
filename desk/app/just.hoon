@@ -33,6 +33,7 @@
   ?+    mark  (on-poke:default mark vase)
       %dill-poke
     =+  !<([ses=@ta belt=dill-belt:dill] vase)
+    ::  Navigation
     =?  cur  ?=(?(%' ' [%bac ~] [%aro *]) belt)
       ?-    belt
         ::  Move back.
@@ -40,10 +41,19 @@
         (dec (max 1 cur))
         ::  Move forward.
           ?(%' ' [%aro %d] [%aro %r])
-        (min +(cur) (dec (lent con)))
+        (min +(cur) (sub (lent con) vue))
       ==
-    ~&  >>  ["{<cur>}/{<(dec (max 1 (lent con)))>}"]
-    [~[(render:aux ses cur 33 con)] this]
+    ::  Close the window.
+    ?:  ?=(?(%'q' %'Q' %'x' %'X') belt)
+      :-  :~  :*  %pass
+                  /just/close
+                  %arvo  %d
+                  ^-  task:dill
+                  [%shot ses=ses task=[%shut ~]]
+          ==  ==
+      this(ses *knot, fyl *path, con *wain, cur 0)
+    ::  Else just render.
+    [~[(render:aux ses cur vue con)] this]
     ::
       %just-action
     =+  !<(act=action:js vase)
@@ -60,7 +70,11 @@
   ==
 ++  on-peek   on-peek:default
 ++  on-arvo   on-arvo:default
-++  on-watch  on-watch:default
+++  on-watch
+  |=  =path
+  ?.  ?=([%dill @ ~] path)  (on-watch:default path)
+  =.  ses  i.t.path
+  [~[(render:aux ses cur vue con)] this]
 ++  on-leave  on-leave:default
 ++  on-agent  on-agent:default
 ++  on-fail   on-fail:default

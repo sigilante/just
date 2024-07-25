@@ -19,7 +19,7 @@
   ::  Source mark.
   =/  of  `term`(head (flop path))
   ::  Short-circuit if a %txt file.
-  ?:  =(%txt of)  .^(wain %cx /[path])
+  ?:  =(%txt of)  .^(wain %cx path)
   ::  Build mark conversion core to %txt.
   ?.  (~(has by mari) of)  ~|(%mark-not-supported !!)
   ::  Get file and envase it.  
@@ -113,8 +113,8 @@
 ++  select
   |=  [[cur=@ len=@] lines=wain]
   ^-  wain  :: (list cord)
-  =/  beg  (sub cur (min cur (div len 2)))
-  =/  end  (add cur (div len 2))
+  =/  beg  cur
+  =/  end  (min (add cur len) (lent lines))
   (slag beg (scag end lines))
 ::  Produce a stub from a line.
 ::
@@ -125,20 +125,22 @@
 ::  Render the current view of lines.
 ::
 ++  render
-  |=  [ses=@ta cur=@ud len=@ud con=wain]
+  |=  [ses=@ta cur=@ud rows=@ud con=wain]
   ^-  card:agent:gall
   =;  =blit
     [%give %fact [/dill/[ses]]~ %dill-blit !>(blit)]
   :-  %mor
-  :*  ::[%clr ~]  ::NOTE  causes flickers in bare sessions
-      [%hop 5 5]
-      [%put `(list @)`"{(a-co:co +(cur))}/{(a-co:co (lent con))}"]
+  :*  [%clr ~]  ::NOTE  causes flickers in bare sessions
+      [%hop 0 0]
+      =/  beg  +(cur)
+      =/  end  (min (add cur rows) (lent con))
+      [%put `(list @)`"{(a-co:co beg)}-{(a-co:co end)}/{(a-co:co (lent con))}"]
     ::
       =-  (flop out)
       %+  roll
         =/  lis=(list stub)
           %+  turn
-            (select [cur 7] con)
+            (select [cur rows] con)
           make
         =+  len=(lent lis)
         ?.  (lth len 28)  lis
