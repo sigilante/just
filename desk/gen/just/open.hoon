@@ -2,7 +2,7 @@
 ::
 :-  %say
 |=  $:  ^
-        =path
+        [=path ~]
         ~
     ==
 [%just-action [%open path]]
